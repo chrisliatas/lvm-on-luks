@@ -2,8 +2,11 @@
 
 noise () {
 
-    # fill luks container partition with noise (takes a long time for larger partitions) http://serverfault.com/a/415962
-    openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 2>/dev/null | base64)" -nosalt < /dev/zero > /dev/$1$2
+    ### fill luks container partition with noise. see readme for more info
+    
+    cryptsetup open --type plain -d /dev/urandom /dev/$1$2  to_be_wiped
+    cat /dev/zero > /dev/mapper/to_be_wiped
+    cryptsetup close to_be_wiped
 
 }
 
