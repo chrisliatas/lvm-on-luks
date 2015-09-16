@@ -10,9 +10,13 @@ This is a more common method for full system encryption, and uses two disk parti
 
 ### Instructions
 1. Create two partitions: sdxy for the LUKS container, and sdxz for the /boot partition
-2. Optionally fill the LUKS container partition with enecrypted noise to prevent an attacker from potentially learning about the size or structure of the contents, and to destroy any data currently on the partition.
-    
-    `sudo bash lvm-on-luks sdx y noise`
+2. (Optional) Fill the LUKS container partition with encrypted noise (see Noise section for more information).
+
+  1. (Optional) Install gddrescue in order to show progress of wipe.
+
+    `apt-get -y install gddrescue`
+
+  2. `sudo bash lvm-on-luks sdx y noise`
 
 3. Run the install script, providing the size in GB of /, /home, and /swap
 
@@ -33,9 +37,13 @@ As mentioned above, this setup means the LUKS password must be entered before GR
 
 ### Instructions
 1. Create one partitions: sdxy for the LUKS container
-2. Optionally fill the LUKS container partition with enecrypted noise to prevent an attacker from potentially learning about the size or structure of the contents, and to destroy any data currently on the partition.
-    
-    `sudo bash lvm-on-luks sdx y noise`
+2. (Optional) Fill the LUKS container partition with encrypted noise (see Noise section for more information).
+
+  1. (Optional) Install gddrescue in order to show progress of wipe.
+
+    `apt-get -y install gddrescue`
+
+  2. `sudo bash lvm-on-luks sdx y noise`
 
 3. Run the install script, providing the size in GB of / (which will also contain /boot), /home, and /swap
 
