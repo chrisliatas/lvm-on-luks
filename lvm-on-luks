@@ -3,9 +3,20 @@
 noise () {
 
     ### fill luks container partition with noise. see readme for more info
-    
+
+    # create temporary dm-crypt with random key    
     cryptsetup open --type plain -d /dev/urandom /dev/$1$2  to_be_wiped
-    cat /dev/zero > /dev/mapper/to_be_wiped
+
+    # write zeros to temporary dm-crypt
+    # use dd rescue (for progress) if it is installed, else use cat
+
+    if hash gdate 2>/dev/null; then
+        ddrescue --force /dev/zero /dev/mapper/to_be_wiped
+    else
+        cat /dev/zero > /dev/mapper/to_be_wiped
+    fi
+    
+    # delete temporary dm-crypt 
     cryptsetup close to_be_wiped
 
 }
