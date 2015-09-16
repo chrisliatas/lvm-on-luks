@@ -10,7 +10,7 @@ noise () {
     # write zeros to temporary dm-crypt
     # use dd rescue (for progress) if it is installed, else use cat
 
-    if hash gdate 2>/dev/null; then
+    if hash ddrescue 2>/dev/null; then
         ddrescue --force /dev/zero /dev/mapper/to_be_wiped
     else
         cat /dev/zero > /dev/mapper/to_be_wiped
